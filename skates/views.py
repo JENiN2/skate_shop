@@ -12,7 +12,7 @@ def index(request):
 def skates_list(request):
     context = {'title': 'Скейтборды'}
     skate = Skate.objects.all()
-    paginator = Paginator(skate, 2)
+    paginator = Paginator(skate, 4)
     page_num = request.GET.get('page', 1)
     page_objects = paginator.get_page(page_num)
     context['page_obj'] = page_objects
