@@ -47,7 +47,6 @@ def skates_list(request):
 def skate_detail(request, skate_id):
     skate = get_object_or_404(Skate, pk=skate_id)
     context = {'skate_item': skate}
-    print(context)
     return render(
         request,
         'skates/skate_details.html',
@@ -83,3 +82,9 @@ def skate_add(request):
             template_name='skates/skate_add.html',
             context=context
         )
+
+
+def skate_delete(request, skate_id):
+    print(skate_id)
+    Skate.objects.filter(id=skate_id).delete()
+    return HttpResponseRedirect('/skates/list')

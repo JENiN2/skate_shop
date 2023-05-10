@@ -23,11 +23,11 @@
         <p>Цвет: {{ skate_item.color }}</p>
         <br>
         <input type="submit" class="btn btn-success" value="Добавить в корзину">
+        <br>
+        <p><a class="btn btn-danger" href="{% url 'skate_delete' skate_item.pk  %}">Удалить скейтборд</a></p>
     </td>
 </tr>
 </table>
-
-    <p></p>
 </div>
 
 {% endblock %}
