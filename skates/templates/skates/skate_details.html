@@ -10,9 +10,9 @@
 <table>
 <tr>
 	<td>{% if skate_item.photo != Null %}
-            <img src="{{ skate_item.photo.url }}" class="card-img-top" alt="{{ skate_item.name }}">
+            <img src="{{ skate_item.photo.url }}" class="card-img-top" alt="{{ skate_item.name }}" style="width: 22rem">
         {% else %}
-            <img src="{% static 'image/icon_placeholder_3.jpg' %}" class="card-img-top" alt="{{ skate_item.name }}">
+            <img src="{% static 'image/icon_placeholder_3.jpg' %}" class="card-img-top" alt="{{ skate_item.name }}" style="width: 18rem">
         {% endif %}
     </td>
 	<td>
