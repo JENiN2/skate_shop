@@ -19,9 +19,9 @@
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">{{ item.description }}</p>
+                <p class="card-text">{{ item.price }} руб</p>
                 <p class="card-text">{{ item.date_create|date:'Y-m-d l' }}</p>
-                <a href="#" class="btn btn-primary">Подробнее</a>
+                <a href="{% url 'skate_detail' item.pk %}" class="btn btn-primary">Подробнее</a>
             </div>
         </div>
 

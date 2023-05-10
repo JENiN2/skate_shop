@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 
@@ -41,3 +41,10 @@ def skates_list(request):
         template_name='skates/skates_list.html',
         context=context
     )
+
+
+def skate_detail(request, skate_id):
+    skate = get_object_or_404(Skate, pk=skate_id)
+    context = {'skate_item': skate}
+    print(context)
+    return render(request, 'skates/skate_details.html', context)
