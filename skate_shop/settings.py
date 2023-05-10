@@ -129,6 +129,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Сохранение стат�
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'skates/static'),
+    os.path.join(BASE_DIR, 'skate_shop/static'),
 ]
 
 # Default primary key field type

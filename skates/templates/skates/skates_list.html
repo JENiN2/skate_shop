@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %}
 {{ title }}
@@ -12,9 +12,11 @@
     <div>
         {% for item in page_obj %}
         <div class="card" style="width: 18rem">
-
-            <img src="{{ item.photo.url }}" class="card-img-top" alt="{{ item.photo.url }}">
-
+            {% if item.photo != Null %}
+                <img src="{{ item.photo.url }}" class="card-img-top" alt="{{ item.name }}">
+            {% else %}
+                <img src="{% static 'image/icon_placeholder.jpg' %}" class="card-img-top" alt="{{ item.name }}">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ item.name }}</h5>
                 <p class="card-text">{{ item.description }}</p>
