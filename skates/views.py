@@ -186,7 +186,7 @@ def skates_api_list(request):
     if request.method == 'GET':
         skate_list = Skate.objects.all()
         serializer = SkateSerializer(skate_list, many=True)
-        return Response({'fruit_list': serializer.data})
+        return Response({'skate_list': serializer.data})
     elif request.method == 'POST':
         serializer = SkateSerializer(data=request.data)
         if serializer.is_valid():
