@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block content %}
+   <div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <br>
+        <input type="submit" class="btn btn-primary" value="Войти">
+        <br><br>
+    </form>
+    <a class="btn btn-warning" href="{% url 'reg' %}">Зарегистрироваться</a>
+    <a class="btn btn-success" href="{% url 'index' %}">Назад</a>
+   </div>
+{% endblock %}

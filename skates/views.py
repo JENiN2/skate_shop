@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.contrib.auth import login, logout
 
 from .models import Skate
-from .forms import SkateForm, SkateUpdForm
+from .forms import SkateForm, SkateUpdForm, RegistrationForm, LoginForm
 
 
 def index(request):
@@ -115,3 +116,33 @@ def skate_delete(request, skate_id):
     print(skate_id)
     Skate.objects.filter(id=skate_id).delete()
     return HttpResponseRedirect('/skates/list')
+
+
+def user_registration(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('index')
+    else:
+        form = RegistrationForm()
+    return render(request, 'skates/auth/registration.html', {'title': 'Регистрация',
+                                                             'form': form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = LoginForm()
+    return render(request, 'skates/auth/login.html', {'title': 'Авторизация',
+                                                      'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('log_in')

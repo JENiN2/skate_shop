@@ -14,7 +14,9 @@
             <table>
                 {{ form.as_table }}
             </table>
-            <input class="btn btn-success" type="submit" value="Добавить скейт">
+            <input class="btn btn-info" type="submit" value="Добавить скейт">
+            <br><br>
+            <a class="btn btn-success" href="{% url 'skates_list' %}">Назад</a>
         </form>
     </div>
 {% endblock %}
