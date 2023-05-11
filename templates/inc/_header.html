@@ -25,6 +25,9 @@
                 <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
             </li>
         {% else %}
+            <li>
+                <a class="nav-link" >Привет, {{ user.username }}!</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'log_out' %}">Выйти</a>
             </li>

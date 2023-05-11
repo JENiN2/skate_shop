@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Skate shop
+    {{ title }}
 {% endblock %}
 
 {% block content %}
@@ -10,8 +10,29 @@
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Custom jumbotron</h1>
         <p class="col-md-8 fs-4">Text</p>
-        <button class="btn btn-primary btn-lg" type="button">Login</button>
+        {% if request.user.is_anonymous %}
+            <p class="col-md-8 fs-4">
+                <a class="btn btn-primary btn-lg" href="{% url 'log_in' %}">Войти</a> или
+                <a class="btn btn-primary btn-lg" href="{% url 'reg' %}">Зарегистрироваться</a>
+            </p>
+        {% else %}
+        {% endif %}
       </div>
     </div>
 </div>
 {% endblock %}
+        {% if request.user.is_anonymous %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'log_in' %}">Авторизация</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
+            </li>
+        {% else %}
+            <li>
+                <a class="nav-link" >Привет, {{ user.username }}!</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'log_out' %}">Выйти</a>
+            </li>
+        {% endif %}

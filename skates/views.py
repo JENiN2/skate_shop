@@ -2,13 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import permission_required
+from skate_shop.settings import LOGIN_URL
 
 from .models import Skate
 from .forms import SkateForm, SkateUpdForm, RegistrationForm, LoginForm
 
 
 def index(request):
-    return render(request, 'skates/index.html')
+    return render(request, 'skates/index.html', {'title': 'Домашняя страница'})
 
 
 def skates_list(request):
@@ -57,6 +59,7 @@ def skate_detail(request, skate_id):
     )
 
 
+@permission_required(perm='skate.add_skate', login_url=LOGIN_URL)
 def skate_add(request):
     if request.method == 'POST':
         context = dict()
@@ -90,6 +93,7 @@ def skate_add(request):
         )
 
 
+@permission_required(perm='skate.change_skate', login_url=LOGIN_URL)
 def skate_edit(request, skate_id):
     skate = get_object_or_404(Skate, pk=skate_id)
     if request.method == 'GET':
@@ -112,6 +116,7 @@ def skate_edit(request, skate_id):
     )
 
 
+@permission_required(perm='skate.delete_skate', login_url=LOGIN_URL)
 def skate_delete(request, skate_id):
     print(skate_id)
     Skate.objects.filter(id=skate_id).delete()
