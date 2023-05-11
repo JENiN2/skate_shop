@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'skates.apps.SkatesConfig',
+    # third party
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

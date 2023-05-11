@@ -4,15 +4,18 @@ from skates.views import *
 
 urlpatterns = [
     path('', index, name='index'),
-    path('list', skates_list, name='skates_list'),
+    path('list/', skates_list, name='skates_list'),
     path('list/<int:skate_id>/', skate_detail, name='skate_detail'),
-    path('add_new', skate_add, name='skate_add'),
+    path('add_new/', skate_add, name='skate_add'),
     path('delete/<int:skate_id>/', skate_delete, name='skate_delete'),
-    path('edit/<int:skate_id>', skate_edit, name='skate_edit'),
+    path('edit/<int:skate_id>/', skate_edit, name='skate_edit'),
     # Users
     path('registration/', user_registration, name='reg'),
     path('log_in/', user_login, name='log_in'),
     path('log_out/', user_logout, name='log_out'),
     # email
     path('email/', contact_email, name='contact_email'),
+    # api
+    path('api/list/', skates_api_list, name='skates_api_list'),
+    path('api/detail/<int:pk>', skates_api_detail, name='skates_api_detail'),
 ]

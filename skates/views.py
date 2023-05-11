@@ -6,9 +6,15 @@ from django.conf import settings
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth import login, logout
 from skate_shop.settings import LOGIN_URL
+from django.http import JsonResponse
+from rest_framework import status, viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 
 from .models import Skate
 from .forms import SkateForm, SkateUpdForm, RegistrationForm, LoginForm, ContactForm
+from .serializers import SkateSerializer
 
 
 def index(request):
@@ -173,3 +179,42 @@ def contact_email(request):
         form = ContactForm()
     return render(request, "skates/email.html", {'title': 'Письмо',
                                                  'form': form})
+
+
+@api_view(['GET', 'POST'])
+def skates_api_list(request):
+    if request.method == 'GET':
+        skate_list = Skate.objects.all()
+        serializer = SkateSerializer(skate_list, many=True)
+        return Response({'fruit_list': serializer.data})
+    elif request.method == 'POST':
+        serializer = SkateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def skates_api_detail(request, pk, format=None):
+    skate_obj = get_object_or_404(Skate, pk=pk)
+    if skate_obj.exist:
+        if request.method == "GET":
+            serializer = SkateSerializer(skate_obj)
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = SkateSerializer(skate_obj, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({
+                    'message': 'Данные успешно обновлены',
+                    'skate': serializer.data
+                })
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'DELETE':
+            skate_obj.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
