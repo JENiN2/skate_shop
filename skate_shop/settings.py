@@ -139,3 +139,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Установка пути для медиа контента
 MEDIA_URL = '/media/'  # URL-адрес для вывода картинок на сайте
+
+EMAIL_HOST_USER = 'hlfan2@yandex.ru'
+EMAIL_HOST_PASSWORD = 'nqnlaowrebdqfqhs'
+EMAIL_HOST = 'smtp.ya.ru'
+EMAIL_PORT = '465'
+EMAIL_USE_SSL = True
+EMAIL_USE_TLC = True

@@ -13,4 +13,6 @@ urlpatterns = [
     path('registration/', user_registration, name='reg'),
     path('log_in/', user_login, name='log_in'),
     path('log_out/', user_logout, name='log_out'),
+    # email
+    path('email/', contact_email, name='contact_email'),
 ]

@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import permission_required
 from skate_shop.settings import LOGIN_URL
 
 from .models import Skate
-from .forms import SkateForm, SkateUpdForm, RegistrationForm, LoginForm
+from .forms import SkateForm, SkateUpdForm, RegistrationForm, LoginForm, ContactForm
 
 
 def index(request):
@@ -127,7 +129,7 @@ def user_registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
             return redirect('index')
     else:
         form = RegistrationForm()
@@ -151,3 +153,23 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('log_in')
+
+
+@login_required
+def contact_email(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                form.cleaned_data['content'],
+                settings.EMAIL_HOST_USER,
+                ['natali_jar@mail.ru'],
+                fail_silently=False
+            )
+            if mail:
+                return redirect('index')
+    else:
+        form = ContactForm()
+    return render(request, "skates/email.html", {'title': 'Письмо',
+                                                 'form': form})
