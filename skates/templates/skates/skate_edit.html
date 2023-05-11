@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block content %}
+<div class="container text-center">
+    <h1 align="center">Редактирование товара</h1>
+    <div class="row align-items-start">
+        <div class="col">
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in form %}
+            {% if field.name != 'exist' %}
+              <div class="form-floating mb-4">
+                {{ field }}
+                <label class="floatingInput" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              </div>
+              {{ field.errors }}
+            {% else %}
+                {{ field }}
+                <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field.errors }}
+            {% endif %}
+          {% endfor %}
+          <br><br>
+          <input class="btn btn-success" type="submit" value="Применить изменения">
+        </form>
+        <br>
+        <a class="btn btn-info" href="{% url 'skate_detail' skate_item.pk %}">Назад</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+

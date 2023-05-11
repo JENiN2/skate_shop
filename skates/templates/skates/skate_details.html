@@ -22,8 +22,8 @@
         <p>Артикул товара: {{ skate_item.article_number }}</p>
         <p>Цвет: {{ skate_item.color }}</p>
         <br>
-        <input type="submit" class="btn btn-success" value="Добавить в корзину">
-        <br>
+        <p><input type="submit" class="btn btn-success" value="Добавить в корзину"></p>
+        <p><a class="btn btn-warning" href="{% url 'skate_edit' skate_item.pk  %}">Редактировать</a></p>
         <p><a class="btn btn-danger" href="{% url 'skate_delete' skate_item.pk  %}">Удалить скейтборд</a></p>
     </td>
 </tr>

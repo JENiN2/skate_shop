@@ -1,4 +1,5 @@
 from django import forms
+from .models import Skate
 
 
 class SkateForm(forms.Form):
@@ -35,3 +36,19 @@ class SkateForm(forms.Form):
         required=False,
         label='Фото скейта'
         )
+
+
+class SkateUpdForm(forms.ModelForm):
+
+    class Meta:
+        model = Skate  # модель берет поля формы
+        fields = ['name', 'description', 'price', 'article_number', 'color', 'photo', 'exist']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control',
+                                            'id': 'floatingInput'}),
+            'description': forms.TextInput(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'article_number': forms.NumberInput(attrs={'class': 'form-control'}),
+            'color': forms.TextInput(attrs={'class': 'form-control'}),
+            'exist': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }

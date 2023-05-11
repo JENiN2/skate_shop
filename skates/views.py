@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 
 from .models import Skate
-from .forms import SkateForm
+from .forms import SkateForm, SkateUpdForm
 
 
 def index(request):
@@ -46,7 +46,9 @@ def skates_list(request):
 
 def skate_detail(request, skate_id):
     skate = get_object_or_404(Skate, pk=skate_id)
-    context = {'skate_item': skate}
+    context = {'title': 'Подробности',
+               'skate_item': skate,
+               }
     return render(
         request,
         'skates/skate_details.html',
@@ -76,12 +78,37 @@ def skate_add(request):
         return HttpResponseRedirect('/skates/list')
     else:
         skate_form = SkateForm()
-        context = {'form': skate_form}
+        context = {
+            'title': 'Добавление скейтборда',
+            'form': skate_form
+        }
         return render(
             request=request,
             template_name='skates/skate_add.html',
             context=context
         )
+
+
+def skate_edit(request, skate_id):
+    skate = get_object_or_404(Skate, pk=skate_id)
+    if request.method == 'GET':
+        form = SkateUpdForm(request.POST or None, instance=skate)
+    else:
+        form = SkateUpdForm(instance=skate, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            print('-----------------------------------', form)
+            form.save()
+            return HttpResponseRedirect('/skates/list/' + str(skate_id))
+    context = {
+        'title': 'Редактирование товара',
+        'skate_item': skate,
+        'form': form,
+               }
+    return render(
+        request,
+        'skates/skate_edit.html',
+        context
+    )
 
 
 def skate_delete(request, skate_id):
