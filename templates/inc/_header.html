@@ -14,6 +14,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'contact_email' %}">Связь с нами</a>
         </li>
+
         {% endif %}
 
       </ul>
@@ -36,7 +37,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'log_out' %}">Выйти</a>
             </li>
+
         {% endif %}
+        <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <div id="id_clock"></div>
+                    <script>digitalClock();</script>
+                </a>
+        </li>
       </ul>
       </form>
     </div>
