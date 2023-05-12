@@ -7,6 +7,7 @@
 
 {% block content %}
 <div class="container">
+    <h1 align="center">Подробное описание</h1>
 <table>
 <tr>
 	<td>{% if skate_item.photo != "" %}
@@ -21,18 +22,24 @@
         <p>Цена: {{ skate_item.price }}</p>
         <p>Артикул товара: {{ skate_item.article_number }}</p>
         <p>Цвет: {{ skate_item.color }}</p>
-        <br>
-        <p><input type="submit" class="btn btn-success" value="Добавить в корзину"></p>
-        {% if perms.skates.change_skate %}
+    </td>
+</tr>
+</table>
+    <div class="container" align="center">
+
+        <form method="post" action="{% url 'add_basket_prod' skate_item.pk %}">
+            <input type="submit" class="btn btn-success" value="Добавить в корзину">
+            {% csrf_token %}
+            {{ basket_form }}<br>
+
+        </form><br>
+                {% if perms.skates.change_skate %}
             <p><a class="btn btn-warning" href="{% url 'skate_edit' skate_item.pk  %}">Редактировать</a></p>
         {% endif %}
         {% if perms.skates.delete_skate %}
             <p><a class="btn btn-danger" href="{% url 'skate_delete' skate_item.pk  %}">Удалить скейтборд</a></p>
         {% endif %}
         <p><a class="btn btn-success" href="{% url 'skates_list' %}">Назад</a></p>
-    </td>
-</tr>
-</table>
+    </div>
 </div>
-
 {% endblock %}

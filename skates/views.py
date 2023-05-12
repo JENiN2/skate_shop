@@ -6,8 +6,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth import login, logout
 from skate_shop.settings import LOGIN_URL
-from django.http import JsonResponse
-from rest_framework import status, viewsets
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -15,6 +14,7 @@ from rest_framework.decorators import api_view
 from .models import Skate
 from .forms import SkateForm, SkateUpdForm, RegistrationForm, LoginForm, ContactForm
 from .serializers import SkateSerializer
+from basket.forms import BasketAddProductForm
 
 
 def index(request):
@@ -57,8 +57,10 @@ def skates_list(request):
 
 def skate_detail(request, skate_id):
     skate = get_object_or_404(Skate, pk=skate_id)
+    basket_form = BasketAddProductForm()
     context = {'title': 'Подробности',
                'skate_item': skate,
+               'basket_form': basket_form
                }
     return render(
         request,

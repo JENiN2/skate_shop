@@ -8,14 +8,17 @@
 <div class="container">
     <div class="p-5 mb-4 bg-light rounded-3">
       <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-        <p class="col-md-8 fs-4">Text</p>
+        <h1 class="display-5 fw-bold">Магазин скейтбордов</h1>
+        <p class="col-md-8 fs-4">В нашем магазине вы можете купить скейтборды в сборе.</p>
         {% if request.user.is_anonymous %}
             <p class="col-md-8 fs-4">
                 <a class="btn btn-primary btn-lg" href="{% url 'log_in' %}">Войти</a> или
                 <a class="btn btn-primary btn-lg" href="{% url 'reg' %}">Зарегистрироваться</a>
             </p>
         {% else %}
+            <p class="col-md-8 fs-4">
+                <a class="btn btn-primary btn-lg" href="{% url 'skates_list' %}">Перейти к покупкам</a>
+            </p>
         {% endif %}
       </div>
     </div>

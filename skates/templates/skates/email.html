@@ -6,7 +6,8 @@
 
 {% block content %}
    <div class="container">
-    <form method="post">
+     <h1 align="center">Напишите нам отзыв или предложение</h1>
+     <form method="post">
             {% csrf_token %}
 
             {{ form.subject.label }}
@@ -16,8 +17,8 @@
             {{ form.content }}
             <br>
             <input type="submit" class="btn btn-primary" value="Отправить сообщение">
-    </form>
-    <br>
-    <a class="btn btn-success" href="{% url 'index' %}">Назад</a>
+     </form>
+     <br>
+     <a class="btn btn-success" href="{% url 'index' %}">Назад</a>
    </div>
 {% endblock %}

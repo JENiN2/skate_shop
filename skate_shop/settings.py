@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'skates.apps.SkatesConfig',
+    'basket',
     # third party
     'rest_framework',
 ]
@@ -148,3 +149,6 @@ EMAIL_HOST = 'smtp.ya.ru'
 EMAIL_PORT = '465'
 EMAIL_USE_SSL = True
 EMAIL_USE_TLC = True
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+BASKET_SESSION_ID = 'basket'

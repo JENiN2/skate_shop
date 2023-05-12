@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('skates/', include('skates.urls')),
+    path('basket/', include('basket.urls')),
 ]
 
 if settings.DEBUG:
